@@ -1,24 +1,20 @@
-import unittest
-from main import divide, modulus
+import pytest
+from main import count_vowels
 
-class TestDivide(unittest.TestCase):
-    def test_divide_success(self):
-        self.assertEqual(divide(10,2), 5)
-        self.assertEqual(divide(6,3), 2)
-        self.assertEqual(divide(70,2), 35)
+def test_all_vowels():
+    """Проверка строки, содержащей только гласные."""
+    assert count_vowels("aeiou") == 5
+    assert count_vowels("AEIOU") == 5
 
-    def test_divide_by_zero(self):
-        self.assertRaises(ValueError, divide, 6, 0)
+def test_no_vowels():
+    """Проверка строки, не содержащей гласных."""
+    assert count_vowels("bcdfg") == 0
+    assert count_vowels("BCDFG") == 0
 
-class TestModulus(unittest.TestCase):
-    def test_modulus_success(self):
-        self.assertEqual(modulus(10, 3), 1)
-        self.assertEqual(modulus(9, 3), 0)
-        self.assertEqual(modulus(70, 7), 0)
+def test_mixed_string():
+    """Проверка смешанной строки, содержащей как гласные, так и согласные, включая прописные и строчные буквы."""
+    assert count_vowels("Hello, World!") == 3
+    assert count_vowels("PyThOn Is AwEsOmE") == 6
 
-    def test_modulus_by_zero(self):
-        self.assertRaises(ValueError, modulus, 6, 0)
-
-
-if __name__ == '__main__':
-    unittest.main()
+if __name__ == "__main__":
+    pytest.main()
